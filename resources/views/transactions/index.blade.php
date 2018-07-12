@@ -164,7 +164,8 @@ var cars = 1;
 $(".btnAddCar").click(function(){
   cars++;
   var html = '<fieldset class="delete">'+
-          '<legend>Mobil '+cars+'</legend>'+
+          '<legend>Mobil '+cars+'<span style="display:inline-block; width: 20px;"></span><button class="btn btn-danger" type="button" style="height:30px;margin:5px">'+
+    'X</button></legend>'+
           '<div class="form-group">'+
             '<label class="control-label col-sm-2" for="driver">Driver :</label>'+
             '<div class="col-sm-10">'+
@@ -247,7 +248,7 @@ $("body").on("click",".btnAdd",function(){
 
 //To Delete Added Fields
 $("body").on("click",".btn-danger",function(){ 
-        $(this).parents(".delete").remove();
+        $(this).closest(".delete").remove();
 });
     
 $(function() {
@@ -378,8 +379,7 @@ $(function() {
                 //your code here
       }
     });
-    $('#title').val('');
-    $('#body').val('');
+  ;
   });
 
 // function Edit Transaction
@@ -398,12 +398,12 @@ $(document).on('click', '.edit-modal', function() {
     $('#fed').val($(this).data('date'));
     $('#fc').val($(this).data('client'));
     if($(this).data('in')==0){
-      $('#fa').val("out");
       $('#fa option[value="'+$(this).data('out')+'"]').attr('selected', true);
+      $('#fqty').val($(this).data('out'));
     }
     else{
-      $('#fa').val("in");
       $('#fa option[value="'+$(this).data('in')+'"]').attr('selected', true);
+      $('#fqty').val($(this).data('in'));
     }
     $('#fd option[value="'+$(this).data('driver')+'"]').attr('selected', true);
     $('#fpn').val($(this).data('plate'));
@@ -441,7 +441,7 @@ $(document).on('click', '.delete-modal', function() {
     $('#footer_action_button').addClass('glyphicon-trash');
     $('.actionBtn').removeClass('btn-success');
     $('.actionBtn').addClass('btn-danger');
-    $('.actionBtn').addClass('delete');
+    $('.actionBtn').addClass('deleteBtn');
     $('.modal-title').text('Delete Project');
     $('.id').text($(this).data('id'));
     $('.deleteContent').show();
@@ -451,16 +451,15 @@ $(document).on('click', '.delete-modal', function() {
 });
 
 //To Delete
-$('.modal-footer').on('click', '.delete', function(){
+$('.modal-footer').on('click', '.deleteBtn', function(){
   $.ajax({
     type: 'POST',
-    url: 'deletePost',
+    url: 'deleteDetail',
     data: {
       '_token': $('input[name=_token]').val(),
       'id': $('.id').text()
     },
     success: function(data){
-       $('.post' + $('.id').text()).remove();
        $('#siteinstructs-table').DataTable().draw( false );
     }
   });

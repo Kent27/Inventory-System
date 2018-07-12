@@ -38,8 +38,7 @@
             </div>
           </div>
           <fieldset>
-          <legend>Mobil 1 <button class="btn btn-danger" type="button">
-    <i class="glyphicon glyphicon-remove"></i></button> </legend>
+          <legend>Mobil 1 </legend>
           <div class="form-group">
             <label class="control-label col-sm-2" for="driver">Driver :</label>
             <div class="col-sm-10">

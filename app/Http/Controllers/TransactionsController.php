@@ -110,6 +110,7 @@ class TransactionsController extends Controller
             }
             else{
                 foreach($items[$i]['items'.$i] as $key=>$item){
+                $updateditem = Item::find($item);
                 $trd = new Trdetail;
                 $trd->tr_id = $tr->id;
                 $trd->item_id = $item;
@@ -117,14 +118,16 @@ class TransactionsController extends Controller
                 $trd->plate_no = $request->plate_no[$i];
                 if($request->action == "in"){
                     $trd->in = $quantity[$i]['quantity'.$i][$key];
+                    $updateditem->quantity += $quantity[$i]['quantity'.$i][$key];
                 }
                 else{
                     $trd->out = $quantity[$i]['quantity'.$i][$key];
+                    $updateditem->quantity -= $quantity[$i]['quantity'.$i][$key];
                 }
                 $trd->notes = $notes[$i]['notes'.$i][$key];
                 $trd->save();
-
-            }
+                $updateditem->save();
+                }
             }
             
         }
@@ -191,6 +194,10 @@ class TransactionsController extends Controller
         //return response()->json($trd);
     }
 
+    public function deleteDetail(Request $request){
+        $trd = Trdetail::find($request->id)->delete();
+        return response()->json();
+    }
     /**
      * Update the specified resource in storage.
      *
