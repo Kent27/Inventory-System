@@ -42,6 +42,7 @@ Route::POST('deleteItem','ItemsController@destroy');
 
 Route::resource('items', 'ItemsController');
 Route::resource('transactions', 'TransactionsController');
+Route::resource('clients', 'ClientsController');
 
 Route::POST('editTransaction', 'TransactionsController@edit');
 Route::POST('deleteDetail', 'TransactionsController@deleteDetail');
