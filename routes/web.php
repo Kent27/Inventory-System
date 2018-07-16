@@ -29,6 +29,7 @@ Route::get('/siteinstructs', 'SiteinstructsController@index');
 Route::get('/datatables', 'SiteinstructsController@anyData')->name('datatables.data');
 Route::get('/datatables-item', 'ItemsController@datatables')->name('datatables.items');
 Route::get('/datatables-trans', 'TransactionsController@datatables')->name('datatables.trans');
+Route::get('/datatables-client', 'ClientsController@datatables')->name('datatables.clients');
 
 Route::group(['middleware' => ['web']], function() {
   Route::resource('siteinstructs','SiteinstructsController');
@@ -38,11 +39,17 @@ Route::group(['middleware' => ['web']], function() {
 });
 
 Route::POST('editItem','ItemsController@edit');
+Route::POST('editTransaction', 'TransactionsController@edit');
+Route::POST('editClient', 'ClientsController@edit');
+
+
 Route::POST('deleteItem','ItemsController@destroy');
+Route::POST('deleteDetail', 'TransactionsController@deleteDetail');
+Route::POST('deleteClient', 'ClientsController@deleteClient');
 
 Route::resource('items', 'ItemsController');
 Route::resource('transactions', 'TransactionsController');
 Route::resource('clients', 'ClientsController');
 
-Route::POST('editTransaction', 'TransactionsController@edit');
-Route::POST('deleteDetail', 'TransactionsController@deleteDetail');
+
+

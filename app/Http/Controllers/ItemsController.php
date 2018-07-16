@@ -39,11 +39,8 @@ class ItemsController extends Controller
     }
 
     public function datatables(){
-
-            $item = Item::select(['id','name','quantity']);
-            return Datatables::eloquent($item)->make(true);
-
-
+        $item = Item::select(['id','name','quantity']);
+        return Datatables::eloquent($item)->make(true);
     }
     /**
      * Store a newly created resource in storage.

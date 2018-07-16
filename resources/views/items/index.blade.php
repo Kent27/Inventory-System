@@ -129,7 +129,7 @@
       <div class="modal-body">
         <form class="form-horizontal" role="modal">
           <div class="form-group">
-            <label class="control-label col-sm-2"for="id">ID</label>
+            <label class="control-label col-sm-2" for="id">ID</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="fid" disabled>
             </div>

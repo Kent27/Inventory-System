@@ -101,14 +101,13 @@ class TransactionsController extends Controller
         $tr->trnotes = request('trnotes');
         $tr->save();
         for($i=1;$i<=$request->cars;$i++){
-            parse_str($request->items[$i],$items[$i]);
-            parse_str($request->quantity[$i],$quantity[$i]);
-            parse_str($request->notes[$i],$notes[$i]);
-
-            if(!isset($items[$i]['items'.$i])){ //check if the car element is deleted
+            if(!isset($request->items[$i])){ //check if the car element is deleted
                 continue;
             }
             else{
+                parse_str($request->items[$i],$items[$i]);
+                parse_str($request->quantity[$i],$quantity[$i]);
+                parse_str($request->notes[$i],$notes[$i]);
                 foreach($items[$i]['items'.$i] as $key=>$item){
                 $updateditem = Item::find($item);
                 $trd = new Trdetail;
@@ -131,30 +130,7 @@ class TransactionsController extends Controller
             }
             
         }
-        //dd($request->documents);
-        /*if($request->hasFile('documents')){
-            dd($request->file('documents'));
-            $file = $request->file('documents');
-            //foreach ($request->file('documents') as $key=>$file) {
-                # code...
-
-            $filename = $file->getClientOriginalName();
-            $filesize = $file->getClientSize();
-
-
-            //print_r($key." = ".$filename." & ".request('notes')[$key]);
-            $file->storeAs('public/upload', $filename);
-
-            $document = new Document;
-            $document->name = $filename;
-            $document->filepath = "upload/".$filename;
-            $document->uploader_id = auth()->id();
-            $document->tr_id = $tr->id;
-            $document->save();
-
-        }*/
-        //dd($items,$quantity,$notes);
-
+    
         return back()->with('success', 'Your files has been successfully added');
     }
 

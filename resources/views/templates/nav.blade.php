@@ -22,6 +22,7 @@
       		<li><a href="/">Home</a></li>
       		<li><a href="/transactions">Transactions</a></li>
       		<li><a href="/items">Items</a></li>
+          <li><a href="/clients">Clients</a></li>
     	</ul>
 
     	<ul class="nav navbar-nav navbar-right">

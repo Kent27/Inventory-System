@@ -2,160 +2,163 @@
 @section('content')
 
 <div class="container">
+  <div>
+    <a href="#" class="create-modal btn btn-success btn-sm">
+    <i class="glyphicon glyphicon-plus"></i>
+    </a>
+    <a href="#" class="create-modal btn btn-primary btn-sm">
+      Preview
+    </a>
+  </div> 
+  <br>
   <table class="table table-bordered" id="siteinstructs-table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Entry Date</th>
-                <th>Client</th>
-                <th>Driver</th>
-                <th>Item</th>
-                <th>In</th>
-                <th>Out</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Entry Date</th>
+            <th>Client</th>
+            <th>Driver</th>
+            <th>Item</th>
+            <th>In</th>
+            <th>Out</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
         
-    </table>
+  </table>
 
-<a href="#" class="create-modal btn btn-success btn-sm">
-  <i class="glyphicon glyphicon-plus"></i>
-</a>
-<a href="#" class="create-modal btn btn-primary btn-sm">
-  Preview
-</a>
-{{-- Modal Form Create Post --}}
-@include('transactions.modalcreate')
-    {{-- Modal Form Show POST --}}
-<div id="show" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+  {{-- Modal Form Create Post --}}
+  @include('transactions.modalcreate')
+      {{-- Modal Form Show POST --}}
+  <div id="show" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title"></h4>
-                  </div>
-                    <div class="modal-body">
-                    <div class="form-group">
-                      <label for="">Plate No :</label>
-                      <b id="pn"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="">Notes :</label>
-                      <b id="n"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="">Updated at :</label>
-                      <b id="ua"/>
-                    </div>
-                    </div>
-                    </div>
-                  </div>
-</div>
-{{-- Modal Form Edit and Delete Post --}}
-<div id="myModal"class="modal fade" role="dialog">
-    @csrf
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"></h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" role="modal">
-          <input type="text" class="form-control hidden" id="fid" value="">
-          <div class="form-group">
-            <label class="control-label col-sm-2"for="id">ID</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="ftrid" name="ftrid" required>
-                @foreach($transactions as $tr)
-                <option value="{{$tr->id}}">{{$tr->id}}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2"for="id">Date</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="fed" disabled>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2"for="id">Client</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="fc" disabled>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2"for="id">Action</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="fa" name="fa" required>
-              <option value="in">In</option>
-              <option value="out">Out</option>
-              </select>
-            </div>
-          </div>
-          <!-- <div class="form-group">
-            <label class="control-label col-sm-2"for="status">Status</label>
-            <div class="col-sm-10">
-            <input type="text" class="form-control" id="fst" disabled></b>
-            </div>
-          </div> -->
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="fd">Driver :</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="fd" name="fd" required>
-                @foreach($drivers as $driver)
-                <option value="{{$driver->id}}">{{$driver->name}}</option>
-                @endforeach
-                </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2"for="name">Plate No</label>
-            <div class="col-sm-10">
-            <input type="name" class="form-control" id="fpn">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="fi">Item :</label>
-            <div class="col-sm-10">
-                <div class="clone-item">
-                  <div style="margin-bottom:5px">
-                  <div>
-                  <select class="form-control col-sm-3" id="fi" name="fi" style="width:40%" required>
-                  @foreach($items as $item)
-                  <option value="{{$item->id}}">{{$item->name}}</option>
-                  @endforeach
-                  </select>
-                  <input type="number" id=fqty name="fqty" class="col-sm-3 form-control form-margin" style="width:30%">
-                  <input type="text" name="fn" id="fn" class="form-control form-margin col-sm-2" placeholder="Notes" style="width:30%">
-                  </div>
-                  </div>
-                </div>
-                <p class="error-fquantity error-reset text-center alert alert-danger hidden"></p>
-                
-            </div>
-            
-          </div>
-          
-        </form>
-                {{-- Form Delete Post --}}
-        <div class="deleteContent">
-          Are You sure want to delete <span class="title"></span>?
-          <span class="hidden id"></span>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn actionBtn" data-dismiss="modal">
-          <span id="footer_action_button" class="glyphicon"></span>
-        </button>
-        <button type="button" class="btn btn-warning" data-dismiss="modal">
-          <span class="glyphicon glyphicon"></span>close
-        </button>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="">Plate No :</label>
+            <b id="pn"/>
+          </div>
+          <div class="form-group">
+            <label for="">Notes :</label>
+            <b id="n"/>
+          </div>
+          <div class="form-group">
+            <label for="">Updated at :</label>
+            <b id="ua"/>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  {{-- Modal Form Edit and Delete Post --}}
+  <div id="myModal" class="modal fade" role="dialog">
+    @csrf
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="modal">
+            <input type="text" class="form-control hidden" id="fid" value="">
+            <div class="form-group">
+              <label class="control-label col-sm-2"for="id">ID</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="ftrid" name="ftrid" required>
+                  @foreach($transactions as $tr)
+                  <option value="{{$tr->id}}">{{$tr->id}}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2"for="id">Date</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="fed" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2"for="id">Client</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="fc" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2"for="id">Action</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="fa" name="fa" required>
+                <option value="in">In</option>
+                <option value="out">Out</option>
+                </select>
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <label class="control-label col-sm-2"for="status">Status</label>
+              <div class="col-sm-10">
+              <input type="text" class="form-control" id="fst" disabled></b>
+              </div>
+            </div> -->
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="fd">Driver :</label>
+              <div class="col-sm-10">
+                  <select class="form-control" id="fd" name="fd" required>
+                  @foreach($drivers as $driver)
+                  <option value="{{$driver->id}}">{{$driver->name}}</option>
+                  @endforeach
+                  </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2"for="name">Plate No</label>
+              <div class="col-sm-10">
+              <input type="name" class="form-control" id="fpn">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="fi">Item :</label>
+              <div class="col-sm-10">
+                  <div class="clone-item">
+                    <div style="margin-bottom:5px">
+                    <div>
+                    <select class="form-control col-sm-3" id="fi" name="fi" style="width:40%" required>
+                    @foreach($items as $item)
+                    <option value="{{$item->id}}">{{$item->name}}</option>
+                    @endforeach
+                    </select>
+                    <input type="number" id=fqty name="fqty" class="col-sm-3 form-control form-margin" style="width:30%">
+                    <input type="text" name="fn" id="fn" class="form-control form-margin col-sm-2" placeholder="Notes" style="width:30%">
+                    </div>
+                    </div>
+                  </div>
+                  <p class="error-fquantity error-reset text-center alert alert-danger hidden"></p>
+                  
+              </div>
+              
+            </div>
+            
+          </form>
+                  {{-- Form Delete Post --}}
+          <div class="deleteContent">
+            Are You sure want to delete <span class="title"></span>?
+            <span class="hidden id"></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn actionBtn" data-dismiss="modal">
+            <span id="footer_action_button" class="glyphicon"></span>
+          </button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal">
+            <span class="glyphicon glyphicon"></span>close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -248,44 +251,44 @@ $("body").on("click",".btnAdd",function(){
 
 //To Delete Added Fields
 $("body").on("click",".btn-danger",function(){ 
-        $(this).closest(".delete").remove();
+  $(this).closest(".delete").remove();
 });
     
 $(function() {
   //Date Picker for Entry Date
   $('#entry_date').datepicker();
-    $('#siteinstructs-table').DataTable({
-        "order": [[ 1, "desc" ]],
-        "pageLength": 10,
-        "processing": true,
-        "serverSide": true,
-        "ajax": '{!! route('datatables.trans') !!}',
-        "columns": [
-            { data: 'transactions_id'},
-            { data: 'entry_date'},
-            { data: 'client_name', name: 'clients.name'},
-            { data: 'driver_name', name:'drivers.name'},
-            { data: 'item_name', name: 'items.name'},
-            { data: 'in'},
-            { data: 'out'},         
-            {
-                data: null,
-                searchable: false,
-                render: function ( data, type, row, meta ) {
-                    var table = $('#siteinstruct-table').DataTable();
-                    /*var data = table.row( $(this).parents('tr') ).data();*/
-                    return '<a style="margin-right:3px" href="#" class="show-modal btn btn-info btn-sm" data-plate="'+data.plate_no+'" data-notes="'+data.notes+'" data-updated="'+data.updated_at+'"><i class="fa fa-eye"></i>'+
-                    '</a>'+
-                    '<a style="margin-right:3px" href="#" class="edit-modal btn btn-warning btn-sm" data-date="'+data.entry_date+'" data-id="'+data.id+'" data-trid="'+data.transactions_id+'" data-item="'+data.item_id+'" data-client="'+data.client_name+'" data-driver="'+data.driver_id+'" data-plate="'+data.plate_no+'" data-notes="'+data.notes+'" data-in="'+data.in+'" data-out="'+data.out+'">'+
-                    '<i class="glyphicon glyphicon-pencil"></i>'+
-                    '</a>'+
-                    '<a style="margin-right:3px" href="#" class="delete-modal btn btn-danger btn-sm" data-id="'+data.id+'">'+
-                    '<i class="glyphicon glyphicon-trash"></i>'+
-                    '</a>';
-                }
-            }    
-        ]
-    });
+  $('#siteinstructs-table').DataTable({
+      "order": [[ 1, "desc" ]],
+      "pageLength": 10,
+      "processing": true,
+      "serverSide": true,
+      "ajax": '{!! route('datatables.trans') !!}',
+      "columns": [
+          { data: 'transactions_id'},
+          { data: 'entry_date'},
+          { data: 'client_name', name: 'clients.name'},
+          { data: 'driver_name', name:'drivers.name'},
+          { data: 'item_name', name: 'items.name'},
+          { data: 'in'},
+          { data: 'out'},         
+          {
+              data: null,
+              searchable: false,
+              render: function ( data, type, row, meta ) {
+                  var table = $('#siteinstruct-table').DataTable();
+                  /*var data = table.row( $(this).parents('tr') ).data();*/
+                  return '<a style="margin-right:3px" href="#" class="show-modal btn btn-info btn-sm" data-plate="'+data.plate_no+'" data-notes="'+data.notes+'" data-updated="'+data.updated_at+'"><i class="fa fa-eye"></i>'+
+                  '</a>'+
+                  '<a style="margin-right:3px" href="#" class="edit-modal btn btn-warning btn-sm" data-date="'+data.entry_date+'" data-id="'+data.id+'" data-trid="'+data.transactions_id+'" data-item="'+data.item_id+'" data-client="'+data.client_name+'" data-driver="'+data.driver_id+'" data-plate="'+data.plate_no+'" data-notes="'+data.notes+'" data-in="'+data.in+'" data-out="'+data.out+'">'+
+                  '<i class="glyphicon glyphicon-pencil"></i>'+
+                  '</a>'+
+                  '<a style="margin-right:3px" href="#" class="delete-modal btn btn-danger btn-sm" data-id="'+data.id+'">'+
+                  '<i class="glyphicon glyphicon-trash"></i>'+
+                  '</a>';
+              }
+          }    
+      ]
+  });
 
 });
 /*ajax Form Add Transaction*/
@@ -379,7 +382,6 @@ $(function() {
                 //your code here
       }
     });
-  ;
   });
 
 // function Edit Transaction
