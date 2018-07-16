@@ -11,8 +11,6 @@
             <label class="control-label col-sm-2" for="name">Entry Date :</label>
             <div class="col-sm-10">
               <input type='text' class="form-control" id='entry_date' name="entry_date" style='width: 300px;' autocomplete="off" required>
-              
-              <p class="error-entry_date error-reset text-center alert alert-danger hidden"></p>
             </div>
           </div>
           <div class="form-group">
@@ -24,7 +22,6 @@
                 <option value="{{$client->id}}">{{$client->name}}</option>
                 @endforeach
                 </select>
-              <p class="error-client error-reset text-center alert alert-danger hidden"></p>
             </div>
           </div>
           <div class="form-group">
@@ -48,14 +45,12 @@
                 <option value="{{$driver->id}}">{{$driver->name}}</option>
                 @endforeach
                 </select>
-              <p class="error-driver error-reset text-center alert alert-danger hidden"></p>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="plate_no1">Plate No :</label>
             <div class="col-sm-10">
                 <input type="text" name="plate_no1" id="plate_no1" class="form-control">
-              <p class="error-driver error-reset text-center alert alert-danger hidden"></p>
             </div>
           </div>
           <div class="form-group">
@@ -108,6 +103,8 @@
                 <textarea name="trnotes" id="trnotes" class="form-control" placeholder="Notes"></textarea>
             </div>
           </div>
+          <p class="error-entry_date error-reset text-center alert alert-danger hidden"></p>
+          <p class="error-client error-reset text-center alert alert-danger hidden"></p>
         </form>
       </div>
           <div class="modal-footer">

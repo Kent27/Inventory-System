@@ -82,6 +82,11 @@ class ClientsController extends Controller
     public function edit(Request $request)
     {
         //
+        $this->validate($request, [
+            'name' => 'required',
+            'phone_number' => 'numeric|nullable',
+            'account_number' => 'numeric|nullable'
+        ]);
         $client = Client::find ($request->id);
         $client->name = $request->name;
         $client->phone_number = request('phone_number');

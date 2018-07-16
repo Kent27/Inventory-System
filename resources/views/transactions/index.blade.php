@@ -29,7 +29,8 @@
 
   {{-- Modal Form Create Post --}}
   @include('transactions.modalcreate')
-      {{-- Modal Form Show POST --}}
+  
+  {{-- Modal Form Show POST --}}
   <div id="show" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -163,6 +164,7 @@
 
 <script>
 var cars = 1;
+var resetAddModal = $('#create').find($('.modal-body')).html();
 //add cars 
 $(".btnAddCar").click(function(){
   cars++;
@@ -290,8 +292,7 @@ $(function() {
       ]
   });
 
-});
-/*ajax Form Add Transaction*/
+  /*ajax Form Add Transaction*/
   $(document).on('click','.create-modal', function() {
     $('#create').modal('show');
     $('.form-horizontal').show();
@@ -305,10 +306,6 @@ $(function() {
     var drivers=[];
     var plate_no=[];
     var i, j;
-    //var formData = new FormData();
-    /*var formData;
-    var doc = document.getElementById('documents');
-    formData = $('#addForm').serialize();*/
 
     //console.log(formData);
     for(i=1;i<=cars;i++){
@@ -355,8 +352,10 @@ $(function() {
           alert(data.error);
         }
         else{
+          cars=1;
           alert('Success Inserting data');
-
+          $('#create').find($('.modal-body')).html(resetAddModal);
+          $('#entry_date').datepicker();
         }
         
         $('#siteinstructs-table').DataTable().draw( false );
@@ -383,6 +382,9 @@ $(function() {
       }
     });
   });
+
+
+});
 
 // function Edit Transaction
 $(document).on('click', '.edit-modal', function() {

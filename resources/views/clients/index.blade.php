@@ -6,110 +6,128 @@
     
 </div>
 <div class="container-fluid">
-    <div>
-        <a href="#" class="create-modal btn btn-success btn-sm">
-        <i class="glyphicon glyphicon-plus"></i>
-        </a>
-    </div> 
-    <br>
-    <table class="table table-bordered" id="clients-table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Account Number</th>
-                <th>Last Transaction</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-    </table>
+  <div>
+      <a href="#" class="create-modal btn btn-success btn-sm">
+      <i class="glyphicon glyphicon-plus"></i>
+      </a>
+  </div> 
+  <br>
+  <table class="table table-bordered" id="clients-table">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Phone Number</th>
+              <th>Account Number</th>
+              <th>Last Transaction</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+  </table>
 
-    {{-- Modal Form Create Post --}}
-    <div id="create" class="modal fade" role="dialog">
-    @csrf
-      <div class="modal-dialog modal-lg">
+  {{-- Modal Form Create Post --}}
+  <div id="create" class="modal fade" role="dialog">
+  @csrf
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id="addForm" role="form">
+            <div class="form-group row add">
+              <label class="control-label col-sm-3" for="name">Name :</label>
+              <div class="col-sm-8">
+                <input type='text' class="form-control" id='name' name="name">
+                <p class="error-name error-reset text-center alert alert-danger hidden"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="phone_number">Phone Number :</label>
+              <div class="col-sm-8">
+                  <input type='text' class="form-control" id='phone_number' name="phone_number">
+                  <p class="error-phone_number error-reset text-center alert alert-danger hidden"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="bank_name">Bank name :</label>
+              <div class="col-sm-8">
+                  <input type='text' class="form-control" id='bank_name' name="bank_name">
+                <p class="error-bank_name error-reset text-center alert alert-danger hidden"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="account_name">Account Name :</label>
+              <div class="col-sm-8">
+                  <input type='text' class="form-control" id='account_name' name="account_name">
+                <p class="error-account_name error-reset text-center alert alert-danger hidden"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="account_number">Account No :</label>
+              <div class="col-sm-8">
+                  <input type='text' class="form-control" id='account_number' name="account_number">
+                <p class="error-account_number error-reset text-center alert alert-danger hidden"></p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="address">Address :</label>
+              <div class="col-sm-8">
+                  <input type='text' class="form-control" id='address' name="address">
+                  <p class="error-address error-reset text-center alert alert-danger hidden"></p>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-warning" type="button" id="add" data-dismiss="modal">
+            <span class="glyphicon glyphicon-plus"></span>Save and Submit Instruction
+          </button>
+          <button class="btn btn-warning" type="button" data-dismiss="modal">
+            <span class="glyphicon glyphicon-remobe"></span>Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{-- Modal Form Show POST --}}
+  <div id="show" class="modal fade" role="dialog">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"></h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal" id="addForm" role="form">
-              <div class="form-group row add">
-                <label class="control-label col-sm-3" for="name">Name :</label>
-                <div class="col-sm-8">
-                  <input type='text' class="form-control" id='name' name="name">
-                  <p class="error-name error-reset text-center alert alert-danger hidden"></p>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-3" for="phone_number">Phone Number :</label>
-                <div class="col-sm-8">
-                    <input type='text' class="form-control" id='phone_number' name="phone_number">
-                    <p class="error-phone_number error-reset text-center alert alert-danger hidden"></p>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-3" for="bank_name">Bank name :</label>
-                <div class="col-sm-8">
-                    <input type='text' class="form-control" id='bank_name' name="bank_name">
-                  <p class="error-bank_name error-reset text-center alert alert-danger hidden"></p>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-3" for="account_name">Account Name :</label>
-                <div class="col-sm-8">
-                    <input type='text' class="form-control" id='account_name' name="account_name">
-                  <p class="error-account_name error-reset text-center alert alert-danger hidden"></p>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-3" for="account_number">Account No :</label>
-                <div class="col-sm-8">
-                    <input type='text' class="form-control" id='account_number' name="account_number">
-                  <p class="error-account_number error-reset text-center alert alert-danger hidden"></p>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-sm-3" for="address">Address :</label>
-                <div class="col-sm-8">
-                    <input type='text' class="form-control" id='address' name="address">
-                    <p class="error-address error-reset text-center alert alert-danger hidden"></p>
-                </div>
-              </div>
-            </form>
+            <div class="form-group">
+              <label for="">Bank Name :</label>
+              <b id="sbn"/>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button class="btn btn-warning" type="button" id="add" data-dismiss="modal">
-              <span class="glyphicon glyphicon-plus"></span>Save and Submit Instruction
-            </button>
-            <button class="btn btn-warning" type="button" data-dismiss="modal">
-              <span class="glyphicon glyphicon-remobe"></span>Close
-            </button>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="">Account Name :</label>
+              <b id="san"/>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="">Account Number :</label>
+              <b id="sano"/>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="">Address :</label>
+              <b id="sa"/>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    {{-- Modal Form Show POST --}}
-    <div id="show" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title"></h4>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="">Address :</label>
-                <b id="addr"/>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-    {{-- Modal Form Edit and Delete Client --}}
+  </div>
+  {{-- Modal Form Edit and Delete Client --}}
   <div id="myModal" class="modal fade" role="dialog">
     @csrf
     <div class="modal-dialog">
@@ -162,7 +180,9 @@
                 <input type="text" class="form-control" id="fa">
               </div>
             </div>
-            
+            <p class="error-fn error-reset text-center alert alert-danger hidden"></p>
+            <p class="error-fpn error-reset text-center alert alert-danger hidden"></p>
+            <p class="error-fano error-reset text-center alert alert-danger hidden"></p>
           </form>
                   {{-- Form Delete Client --}}
           <div class="deleteContent">
@@ -203,7 +223,7 @@
                     render: function ( data, type, row, meta ) {
                         var table = $('#clients-table').DataTable();
                         /*var data = table.row( $(this).parents('tr') ).data();*/
-                        return '<a style="margin-right:3px" href="#" class="show-modal btn btn-info btn-sm" data-address="'+data.address+'"><i class="fa fa-eye"></i>'+
+                        return '<a style="margin-right:3px" href="#" class="show-modal btn btn-info btn-sm" data-address="'+data.address+'" data-bank_name="'+data.bank_name+'" data-account_name="'+data.account_name+'" data-account_number="'+data.account_number+'"><i class="fa fa-eye"></i>'+
                         '</a>'+
                         '<a style="margin-right:3px" href="#" class="edit-modal btn btn-warning btn-sm" data-id="'+data.id+'" data-name="'+data.name+'" data-phone_number="'+data.phone_number+'" data-account_number="'+data.account_number+'" data-account_name="'+data.account_name+'" data-bank_name="'+data.bank_name+'" data-address="'+data.address+'">'+
                         '<i class="glyphicon glyphicon-pencil"></i>'+
@@ -304,6 +324,21 @@
             alert('Success Editing data');
             $('#clients-table').DataTable().draw( false );
             
+        },
+        error: function(data){
+            alert("Input Incorrect, Please Check Again");
+            if (data.responseJSON.errors['name']) {
+              $('.error-fn').removeClass('hidden');
+              $('.error-fn').text(data.responseJSON.errors['name'])
+            }
+            if (data.responseJSON.errors['phone_number']) {
+              $('.error-fpn').removeClass('hidden');
+              $('.error-fpn').text(data.responseJSON.errors['phone_number']);
+            }
+            if (data.responseJSON.errors['account_number']) {
+              $('.error-fano').removeClass('hidden');
+              $('.error-fano').text(data.responseJSON.errors['account_number']);
+            }
         }
       });
     });
@@ -338,5 +373,17 @@
         }
       });
     });
+
+    //Function for show modal
+    $(document).on('click', '.show-modal', function() {
+      var table = $('#siteinstructs-table').DataTable();
+      console.log( table.row( this ).data() );
+      $('#show').modal('show');
+      $('#sbn').text($(this).data('bank_name'));
+      $('#san').text($(this).data('account_name'));
+      $('#sano').text($(this).data('account_number'));
+      $('#sa').text($(this).data('address'));
+      $('.modal-title').text('Show Detail');
+  });
 </script>
 @endsection
